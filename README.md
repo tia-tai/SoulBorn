@@ -1,3 +1,3 @@
 Welcome to SoulBorn
 
-To experience the game, run: `launch.java`
+To experience the game, run: `Launcher.java`
