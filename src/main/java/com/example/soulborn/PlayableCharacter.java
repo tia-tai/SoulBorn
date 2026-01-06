@@ -7,6 +7,7 @@ public class PlayableCharacter {
     private int kills;
     private boolean alive;
     private Weapon weapon;
+    private int bullets;
     private int hp;
     private boolean player;
     private Image icon;
@@ -21,11 +22,12 @@ public class PlayableCharacter {
     private int armor;
     private int intelligence;
 
-    public PlayableCharacter(String username, int kills, boolean alive, Weapon weapon, int hp, boolean player, Image icon, int defaultPower, int defaultDexterity, int defaultFaith, int defaultArmor, int defaultIntelligence, int power, int dexterity, int faith, int armor, int intelligence) {
+    public PlayableCharacter(String username, int kills, boolean alive, Weapon weapon, int bullets, int hp, boolean player, Image icon, int defaultPower, int defaultDexterity, int defaultFaith, int defaultArmor, int defaultIntelligence, int power, int dexterity, int faith, int armor, int intelligence) {
         this.username = username;
         this.kills = kills;
         this.alive = alive;
         this.weapon = weapon;
+        this.bullets = bullets;
         this.hp = hp;
         this.player = player;
         this.icon = icon;
@@ -39,6 +41,14 @@ public class PlayableCharacter {
         this.faith = faith;
         this.armor = armor;
         this.intelligence = intelligence;
+    }
+
+    public int getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(int bullets) {
+        this.bullets = bullets;
     }
 
     public String getUsername() {
