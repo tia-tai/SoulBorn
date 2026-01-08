@@ -3,7 +3,15 @@ package com.example.soulborn;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 
 public class GameController {
     public AnchorPane homePane;
@@ -35,6 +43,22 @@ public class GameController {
     public Button healButton;
     public Button reloadButton;
     public Button defendButton;
+
+    public HBox weaponCatalog;
+    public Button uploadButton;
+    public ImageView characterImage;
+
+    private FileChooser fileChooser = new FileChooser();
+    private File selectedFile;
+
+    private Player newPlayer;
+
+    public void initialize() {
+        ArrayList<Weapon> weapons = Weapon.getWeapons();
+        for (Weapon weapon : weapons) {
+
+        }
+    }
 
     public void hideAllPanes() {
         homePane.setVisible(false);
@@ -85,5 +109,63 @@ public class GameController {
         hideAllPanes();
         gamePane.setVisible(true);
         gamePane.setDisable(false);
+    }
+
+    public void saveName() {
+        String name = usernameField.getText();
+        newPlayer = new Player(name, 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+    }
+
+    public void saveWeapon() {
+
+    }
+
+    public void upload () throws Exception {
+        uploadButton.setDisable(true);
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            FileInputStream imgInput = new FileInputStream(selectedFile);
+            Image img = new Image(imgInput);
+            characterImage.setImage(img);
+
+            newPlayer.setIcon(img);
+        }
+        uploadButton.setDisable(false);
+    }
+
+    public void editStats() {
+        int power = Integer.parseInt(powerField.getText());
+        int dexterity = Integer.parseInt(dexterityField.getText());
+        int faith = Integer.parseInt(faithField.getText());
+        int armor = Integer.parseInt(armorField.getText());
+        int intelligence = Integer.parseInt(intelligenceField.getText());
+
+        int totalStat = power + dexterity + faith + armor + intelligence;
+        int pointleft = 10 - totalStat;
+
+        while (pointleft < 0) {
+            if (power > 0) {
+                powerField.setText("0");
+                pointleft += power;
+            } else if (dexterity > 0) {
+                dexterityField.setText("0");
+                pointleft += dexterity;
+            } else if (faith > 0) {
+                faithField.setText("0");
+                pointleft += faith;
+            } else if (armor > 0) {
+                armorField.setText("0");
+                pointleft += armor;
+            } else if (intelligence > 0) {
+                intelligenceField.setText("0");
+                pointleft += intelligence;
+            }
+        }
+        upgradePointsLabel.setText(Integer.toString(pointleft));
+        newPlayer.setDefaultArmor(armor); // stopped here
     }
 }

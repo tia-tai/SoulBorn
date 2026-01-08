@@ -10,7 +10,7 @@ public class GameApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("game-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+        Scene scene = new Scene(fxmlLoader.load(), 1910, 1080);
         stage.setTitle("SoulBorn");
         stage.setScene(scene);
         stage.show();
