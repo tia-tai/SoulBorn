@@ -1,5 +1,6 @@
 package com.example.soulborn;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,9 +55,13 @@ public class GameController {
     private Player newPlayer;
 
     public void initialize() {
+        Weapon.generate();
         ArrayList<Weapon> weapons = Weapon.getWeapons();
         for (Weapon weapon : weapons) {
-
+            Button newWeapon = new Button(weapon.getWeaponName());
+            newWeapon.setId(weapon.getWeaponName());
+            newWeapon.setOnAction(this::saveWeapon);
+            weaponCatalog.getChildren().add(newWeapon);
         }
     }
 
@@ -113,11 +118,28 @@ public class GameController {
 
     public void saveName() {
         String name = usernameField.getText();
-        newPlayer = new Player(name, 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+        if (newPlayer == null) {
+            newPlayer = new Player(name, 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+        } else {
+            newPlayer.setUsername(name);
+        }
     }
 
-    public void saveWeapon() {
-
+    public void saveWeapon( ActionEvent event ) {
+        Button currentButton = (Button) event.getSource();
+        Weapon playerWeapon = null;
+        
+        for (Weapon weapon : Weapon.getWeapons()) {
+            if (weapon.getWeaponName().equals(currentButton.getId())) {
+                playerWeapon = weapon;
+            }
+        }
+        if (newPlayer == null) {
+            newPlayer = new Player("", 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+        } else {
+            newPlayer.setWeapon(playerWeapon);
+        }
+        
     }
 
     public void upload () throws Exception {
@@ -132,12 +154,16 @@ public class GameController {
             Image img = new Image(imgInput);
             characterImage.setImage(img);
 
-            newPlayer.setIcon(img);
+            if (newPlayer == null) {
+                newPlayer = new Player("", 0, true, null, 0, 100, true, img, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+            } else {
+                newPlayer.setIcon(img);
+            }
         }
         uploadButton.setDisable(false);
     }
 
-    public void editStats() {
+    public void editStats(ActionEvent event) {
         int power = Integer.parseInt(powerField.getText());
         int dexterity = Integer.parseInt(dexterityField.getText());
         int faith = Integer.parseInt(faithField.getText());
@@ -147,25 +173,47 @@ public class GameController {
         int totalStat = power + dexterity + faith + armor + intelligence;
         int pointleft = 10 - totalStat;
 
-        while (pointleft < 0) {
-            if (power > 0) {
-                powerField.setText("0");
+        if (pointleft < 0) {
+            Label currentLabel = (Label) event.getSource();
+            if (currentLabel.getId().equals("powerField")) {
                 pointleft += power;
-            } else if (dexterity > 0) {
-                dexterityField.setText("0");
+                power = 0;
+                powerField.setText("0");
+            } else if (currentLabel.getId().equals("dexterityField")) {
                 pointleft += dexterity;
-            } else if (faith > 0) {
-                faithField.setText("0");
-                pointleft += faith;
-            } else if (armor > 0) {
-                armorField.setText("0");
+                dexterity = 0;
+                dexterityField.setText("0");
+            } else if (currentLabel.getId().equals("armorField")) {
                 pointleft += armor;
-            } else if (intelligence > 0) {
-                intelligenceField.setText("0");
+                armor = 0;
+                armorField.setText("0");
+            } else if (currentLabel.getId().equals("faithField")) {
+                pointleft += faith;
+                faith = 0;
+                faithField.setText("0");
+            } else if (currentLabel.getId().equals("intelligenceField")) {
                 pointleft += intelligence;
+                intelligence = 0;
+                intelligenceField.setText("0");
             }
         }
+
         upgradePointsLabel.setText(Integer.toString(pointleft));
-        newPlayer.setDefaultArmor(armor); // stopped here
+
+        if (newPlayer == null) {
+            newPlayer = new Player(null, 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+        }
+        newPlayer.setDefaultArmor(armor);
+        newPlayer.setDefaultFaith(faith);
+        newPlayer.setDefaultDexterity(dexterity);
+        newPlayer.setDefaultPower(power);
+        newPlayer.setDefaultIntelligence(intelligence);
+
+        newPlayer.setArmor(armor);
+        newPlayer.setFaith(faith);
+        newPlayer.setDexterity(dexterity);
+        newPlayer.setPower(power);
+        newPlayer.setIntelligence(intelligence);
+
     }
 }

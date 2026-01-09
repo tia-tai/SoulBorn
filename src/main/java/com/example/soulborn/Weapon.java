@@ -56,4 +56,13 @@ public class Weapon {
     public static void setWeapons(ArrayList<Weapon> weapons) {
         Weapon.weapons = weapons;
     }
+
+    public static void generate() {
+        if (weapons.isEmpty()) {
+            new Weapon("Pistol", 16, 12, 0.6f);
+            new Weapon("Club", 80, 5, 1f);
+            new Weapon("Shoeb", 1, 80, 0.2f);
+            new Weapon("Alex", 1, 1, 0.01f);
+        }
+    }
 }

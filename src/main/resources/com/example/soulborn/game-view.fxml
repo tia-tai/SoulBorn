@@ -166,7 +166,7 @@
                                                 <Font name="Georgia Bold" size="40.0" />
                                             </font>
                                         </Text>
-                                        <ScrollPane prefHeight="200.0" style="-fx-background: #1a1a2d; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;">
+                                        <ScrollPane hmax="100.0" prefHeight="200.0" style="-fx-background: #1a1a2d; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;" vmax="0.0">
                                             <content>
                                                 <HBox fx:id="weaponCatalog" spacing="15" style="-fx-padding: 10;">
                                                     <children>
@@ -188,7 +188,7 @@
                                                 <Font name="Georgia Bold" size="30.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="powerField" onAction="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #ff6b6b; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
+                                        <TextField fx:id="powerField" onAction="#editStats" onKeyTyped="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #ff6b6b; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
                                     </children>
                                 </VBox>
                                 <VBox prefWidth="250.0" spacing="5">
@@ -198,7 +198,7 @@
                                                 <Font name="Georgia Bold" size="30.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="dexterityField" onAction="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #90ee90; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
+                                        <TextField fx:id="dexterityField" onAction="#editStats" onKeyTyped="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #90ee90; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
                                     </children>
                                 </VBox>
                                 <VBox prefWidth="250.0" spacing="5">
@@ -208,7 +208,7 @@
                                                 <Font name="Georgia Bold" size="30.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="faithField" onAction="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #ffd700; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
+                                        <TextField fx:id="faithField" onAction="#editStats" onKeyTyped="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #ffd700; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
                                     </children>
                                 </VBox>
                                 <VBox prefWidth="250.0" spacing="5">
@@ -218,7 +218,7 @@
                                                 <Font name="Georgia Bold" size="30.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="armorField" onAction="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #87ceeb; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
+                                        <TextField fx:id="armorField" onAction="#editStats" onKeyTyped="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #87ceeb; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
                                     </children>
                                 </VBox>
                                 <VBox prefWidth="300.0" spacing="5">
@@ -228,7 +228,7 @@
                                                 <Font name="Georgia Bold" size="30.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="intelligenceField" onAction="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #dda0dd; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
+                                        <TextField fx:id="intelligenceField" onAction="#editStats" onKeyTyped="#editStats" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #dda0dd; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 28; -fx-padding: 8; -fx-alignment: center;" text="0" />
                                     </children>
                                 </VBox>
                             </children>

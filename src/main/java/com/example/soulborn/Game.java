@@ -1,6 +1,9 @@
 package com.example.soulborn;
 
-import java.io.Serializable;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
@@ -46,5 +49,44 @@ public class Game implements Serializable {
 
     public static void setGameList(ArrayList<Game> gameList) {
         Game.gameList = gameList;
+    }
+
+    static void saveData() throws Exception {
+        FileOutputStream fileOut = new FileOutputStream("src/main/GameSavedData");
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(Game.getGameList());
+        objectOut.close();
+        fileOut.close();
+    }
+
+    static void restoreData() {
+        try {
+            FileInputStream fileIn = new FileInputStream("src/main/GameSavedData");
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            Game.setGameList((ArrayList<Game>) objectIn.readObject());
+            objectIn.close();
+            fileIn.close();
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream s) throws IOException {
+        s.defaultWriteObject();
+//        if (img != null) {
+//            ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", s);
+//        }
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+//        Image savedImage = null;
+//        try {
+//            savedImage = SwingFXUtils.toFXImage(ImageIO.read(s), null);
+//        } catch (Exception ex) {
+//        }
+//        this.img = savedImage;
     }
 }
