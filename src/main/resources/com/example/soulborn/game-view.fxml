@@ -127,7 +127,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="newGamePaneCH" style="-fx-background-color: rgba(10, 10, 26, 0.95);" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+        <AnchorPane fx:id="newGamePaneCH" disable="true" style="-fx-background-color: rgba(10, 10, 26, 0.95);" visible="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
             <effect>
                 <DropShadow color="#000000" radius="30" spread="0.5" />
             </effect>
@@ -170,7 +170,7 @@
                                             <content>
                                                 <HBox fx:id="weaponCatalog" spacing="15" style="-fx-padding: 10;">
                                                     <children>
-                                                        <Button fx:id="weapon" style="-fx-background-color: #2d2d3d; -fx-text-fill: #ffd700; -fx-background-radius: 8; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-padding: 15 30; -fx-font-size: 20; -fx-cursor: hand;" text="Weapon 1" />
+                                                        <Button fx:id="weapon" onAction="#saveWeapon" style="-fx-background-color: #2d2d3d; -fx-text-fill: #ffd700; -fx-background-radius: 8; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-padding: 15 30; -fx-font-size: 20; -fx-cursor: hand;" text="Weapon 1" />
                                                     </children>
                                                 </HBox>
                                             </content>
@@ -285,87 +285,135 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <HBox prefHeight="380.0" spacing="30">
-                            <children>
-                                <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 15;">
-                                    <effect>
-                                        <DropShadow color="#ffd700" radius="15" spread="0.3" />
-                                    </effect>
-                                    <children>
-                                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="90.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label layoutX="110.0" layoutY="180.0" text="Player" textFill="#ffd700">
-                                            <font>
-                                                <Font name="Georgia Bold" size="40.0" />
-                                            </font>
-                                        </Label>
-                                        <VBox layoutX="30.0" layoutY="240.0" spacing="8">
-                                            <children>
-                                                <Label text="Power: 0" textFill="#ff6b6b"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Dexterity: 0" textFill="#90ee90"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Faith: 0" textFill="#ffd700"><font><Font size="20.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="220.0" layoutY="240.0" spacing="8">
-                                            <children>
-                                                <Label text="Armor: 0" textFill="#87ceeb"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Intelligence: 0" textFill="#dda0dd"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Weapon" textFill="#ffffff"><font><Font size="20.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #87ceeb; -fx-border-width: 2; -fx-border-radius: 15;">
-                                    <effect>
-                                        <DropShadow color="#000000" radius="10" spread="0.2" />
-                                    </effect>
-                                    <children>
-                                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="90.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label layoutX="125.0" layoutY="180.0" text="NPC" textFill="#87ceeb">
-                                            <font>
-                                                <Font name="Georgia Bold" size="40.0" />
-                                            </font>
-                                        </Label>
-                                        <VBox layoutX="30.0" layoutY="240.0" spacing="8">
-                                            <children>
-                                                <Label text="Power: 0" textFill="#ff6b6b"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Dexterity: 0" textFill="#90ee90"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Faith: 0" textFill="#ffd700"><font><Font size="20.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="220.0" layoutY="240.0" spacing="8">
-                                            <children>
-                                                <Label text="Armor: 0" textFill="#87ceeb"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Intelligence: 0" textFill="#dda0dd"><font><Font size="20.0" /></font></Label>
-                                                <Label text="Weapon" textFill="#ffffff"><font><Font size="20.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <Button layoutX="90.0" layoutY="320.0" mnemonicParsing="false" style="-fx-background-color: #1a4d2e; -fx-text-fill: #90ee90; -fx-background-radius: 8; -fx-border-color: #90ee90; -fx-border-width: 2; -fx-border-radius: 8; -fx-cursor: hand; -fx-padding: 8 35;" text="Generate">
-                                            <font>
-                                                <Font size="22.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #1a1a2d, #0a0a1a); -fx-background-radius: 15; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 15; -fx-border-style: dashed;">
-                                    <children>
-                                        <Button layoutX="100.0" layoutY="100.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #4a4a6a; -fx-font-size: 100; -fx-cursor: hand; -fx-background-radius: 50;" text="+">
-                                            <font>
-                                                <Font size="100.0" />
-                                            </font>
-                                        </Button>
-                                        <Text fill="#4a4a6a" layoutX="115.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add NPC">
-                                            <font>
-                                                <Font name="Georgia" size="28.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="380.0" spacing="30">
-                            <children>
-                            </children>
-                        </HBox>
+                  <ScrollPane hmax="100.0" vbarPolicy="NEVER" vmax="0.0">
+                     <content>
+                              <HBox prefHeight="380.0" spacing="30">
+                                  <children>
+                                      <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 15;">
+                                          <effect>
+                                              <DropShadow color="#ffd700" radius="15" spread="0.3" />
+                                          </effect>
+                                          <children>
+                                              <ImageView fx:id="playerIcon" fitHeight="150.0" fitWidth="200.0" layoutX="90.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                                              <Label fx:id="playerName" layoutX="110.0" layoutY="180.0" text="Player" textFill="#ffd700">
+                                                  <font>
+                                                      <Font name="Georgia Bold" size="40.0" />
+                                                  </font>
+                                              </Label>
+                                              <VBox layoutX="30.0" layoutY="240.0" spacing="8">
+                                                  <children>
+                                                      <Label fx:id="powerStat" text="Power: 0" textFill="#ff6b6b">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="dexterityStat" text="Dexterity: 0" textFill="#90ee90">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="faithStat" text="Faith: 0" textFill="#ffd700">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                  </children>
+                                              </VBox>
+                                              <VBox layoutX="220.0" layoutY="240.0" spacing="8">
+                                                  <children>
+                                                      <Label fx:id="armorStat" text="Armor: 0" textFill="#87ceeb">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="intelligenceStat" text="Intelligence: 0" textFill="#dda0dd">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="weaponStat" text="Weapon" textFill="#ffffff">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                  </children>
+                                              </VBox>
+                                          </children>
+                                      </AnchorPane>
+                                      <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #87ceeb; -fx-border-width: 2; -fx-border-radius: 15;">
+                                          <effect>
+                                              <DropShadow color="#000000" radius="10" spread="0.2" />
+                                          </effect>
+                                          <children>
+                                              <ImageView fx:id="NPCIcon" fitHeight="150.0" fitWidth="200.0" layoutX="90.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                                              <Label fx:id="NPCName" layoutX="125.0" layoutY="180.0" text="NPC" textFill="#87ceeb">
+                                                  <font>
+                                                      <Font name="Georgia Bold" size="40.0" />
+                                                  </font>
+                                              </Label>
+                                              <VBox layoutX="30.0" layoutY="240.0" spacing="8">
+                                                  <children>
+                                                      <Label fx:id="powerStatNPC" text="Power: 0" textFill="#ff6b6b">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="dexterityStatNPC" text="Dexterity: 0" textFill="#90ee90">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="faithStatNPC" text="Faith: 0" textFill="#ffd700">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                  </children>
+                                              </VBox>
+                                              <VBox layoutX="220.0" layoutY="240.0" spacing="8">
+                                                  <children>
+                                                      <Label fx:id="armorStatNPC" text="Armor: 0" textFill="#87ceeb">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="intelligenceStatNPC" text="Intelligence: 0" textFill="#dda0dd">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                      <Label fx:id="weaponStatNPC" text="Weapon" textFill="#ffffff">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                                  </children>
+                                              </VBox>
+                                              <Button fx:id="generateNPCButton" layoutX="90.0" layoutY="320.0" mnemonicParsing="false" onAction="#generateNPC" style="-fx-background-color: #1a4d2e; -fx-text-fill: #90ee90; -fx-background-radius: 8; -fx-border-color: #90ee90; -fx-border-width: 2; -fx-border-radius: 8; -fx-cursor: hand; -fx-padding: 8 35;" text="Generate">
+                                                  <font>
+                                                      <Font size="22.0" />
+                                                  </font>
+                                              </Button>
+                                          </children>
+                                      </AnchorPane>
+                                      <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #1a1a2d, #0a0a1a); -fx-background-radius: 15; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 15; -fx-border-style: dashed;">
+                                          <children>
+                                              <Button layoutX="100.0" layoutY="100.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #4a4a6a; -fx-font-size: 100; -fx-cursor: hand; -fx-background-radius: 50;" text="+">
+                                                  <font>
+                                                      <Font size="100.0" />
+                                                  </font>
+                                              </Button>
+                                              <Text fill="#4a4a6a" layoutX="115.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add NPC">
+                                                  <font>
+                                                      <Font name="Georgia" size="28.0" />
+                                                  </font>
+                                              </Text>
+                                          </children>
+                                      </AnchorPane>
+                                  </children>
+                              </HBox>
+                     </content>
+                  </ScrollPane>
                     </children>
                 </VBox>
             </children>

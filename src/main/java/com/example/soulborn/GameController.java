@@ -13,8 +13,10 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController {
+    private Random random = new Random();
     public AnchorPane homePane;
     public AnchorPane savedGamePane;
     public AnchorPane newGamePaneCH;
@@ -33,11 +35,30 @@ public class GameController {
 
     public Label upgradePointsLabel;
 
+    public Label playerName;
+    public Label powerStat;
+    public Label dexterityStat;
+    public Label faithStat;
+    public Label armorStat;
+    public Label intelligenceStat;
+    public Label weaponStat;
+    public ImageView playerIcon;
+
     public Button saveCharacterButton;
     public Button cancelCharacterButton;
     public Button exitSavedGameButton;
     public Button startGameButton;
     public Button generateNPCButton;
+    public Label NPCName;
+    public Label powerStatNPC;
+    public Label dexterityStatNPC;
+    public Label faithStatNPC;
+    public Label armorStatNPC;
+    public Label intelligenceStatNPC;
+    public Label weaponStatNPC;
+    public ImageView NPCIcon;
+    private String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
     public Button addNPCButton;
     public Button exitBattleButton;
     public Button attackButton;
@@ -53,6 +74,10 @@ public class GameController {
     private File selectedFile;
 
     private Player newPlayer;
+
+    private ArrayList<NPC> newNpcs = new ArrayList<>();
+
+    private Game newGame;
 
     public void initialize() {
         Weapon.generate();
@@ -105,9 +130,25 @@ public class GameController {
     }
 
     public void showNPCSetupPane() {
-        hideAllPanes();
-        newGamePaneNPC.setVisible(true);
-        newGamePaneNPC.setDisable(false);
+        if (newPlayer == null) {
+            newPlayer = new Player("", 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+        }
+
+        if (newPlayer.getWeapon() == null || newPlayer.getUsername().isBlank()) {
+            // do something to indicate
+        } else {
+            hideAllPanes();
+            newGamePaneNPC.setVisible(true);
+            newGamePaneNPC.setDisable(false);
+            playerName.setText(newPlayer.getUsername());
+            playerIcon.setImage(newPlayer.getIcon());
+            powerStat.setText("Power: " + newPlayer.getPower());
+            dexterityStat.setText("Dexterity: " + newPlayer.getDexterity());
+            armorStat.setText("Armor: " + newPlayer.getArmor());
+            intelligenceStat.setText("Intelligence: " + newPlayer.getIntelligence());
+            faithStat.setText("Faith: " + newPlayer.getFaith());
+            weaponStat.setText(newPlayer.getWeapon().getWeaponName());
+        }
     }
 
     public void showGamePane() {
@@ -135,7 +176,7 @@ public class GameController {
             }
         }
         if (newPlayer == null) {
-            newPlayer = new Player("", 0, true, null, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+            newPlayer = new Player("", 0, true, playerWeapon, 0, 100, true, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
         } else {
             newPlayer.setWeapon(playerWeapon);
         }
@@ -214,6 +255,38 @@ public class GameController {
         newPlayer.setDexterity(dexterity);
         newPlayer.setPower(power);
         newPlayer.setIntelligence(intelligence);
+    }
 
+    public void generateNPC(ActionEvent event) {
+        Button currentButton = (Button) event.getSource();
+        StringBuilder result = new StringBuilder();
+
+        for (int x = 0; x < 5; x++) {
+            int characterPos = random.nextInt(0, CHARACTERS.length());
+            result.append(CHARACTERS.charAt(characterPos));
+        }
+        String name = result.toString();
+        Weapon weapon;
+
+        int weaponPos = random.nextInt(0, Weapon.getWeapons().size());
+        weapon = Weapon.getWeapons().get(weaponPos);
+
+        int power = random.nextInt(0, 3);
+        int dexterity = random.nextInt(0, 3);
+        int faith = random.nextInt(0, 3);
+        int armor = random.nextInt(0, 3);
+        int intelligence = random.nextInt(0, 3);
+
+        NPCName.setText(name);
+        powerStatNPC.setText("Power: " + power);
+        dexterityStatNPC.setText("Dexterity: " + dexterity);
+        armorStatNPC.setText("Armor: " + armor);
+        intelligenceStatNPC.setText("Intelligence: " + intelligence);
+        faithStatNPC.setText("Faith: " + faith);
+        weaponStatNPC.setText(weapon.getWeaponName());
+    }
+
+    public void addNPC() {
+        //newNpcs.add(new NPC());
     }
 }
