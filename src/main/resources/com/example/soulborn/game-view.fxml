@@ -287,7 +287,7 @@
                         </HBox>
                   <ScrollPane hmax="100.0" vbarPolicy="NEVER" vmax="0.0">
                      <content>
-                              <HBox prefHeight="380.0" spacing="30">
+                              <HBox fx:id="playersList" prefHeight="380.0" spacing="30">
                                   <children>
                                       <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 15;">
                                           <effect>
@@ -398,7 +398,7 @@
                                       </AnchorPane>
                                       <AnchorPane prefHeight="380.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to bottom, #1a1a2d, #0a0a1a); -fx-background-radius: 15; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 15; -fx-border-style: dashed;">
                                           <children>
-                                              <Button layoutX="100.0" layoutY="100.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #4a4a6a; -fx-font-size: 100; -fx-cursor: hand; -fx-background-radius: 50;" text="+">
+                                              <Button layoutX="100.0" layoutY="100.0" mnemonicParsing="false" onAction="#addNPC" style="-fx-background-color: transparent; -fx-text-fill: #4a4a6a; -fx-font-size: 100; -fx-cursor: hand; -fx-background-radius: 50;" text="+">
                                                   <font>
                                                       <Font size="100.0" />
                                                   </font>

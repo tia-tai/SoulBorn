@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.Random;
 
 public class NPC extends PlayableCharacter{
-    public Random random = new Random();
+    public static Random random = new Random();
     public NPC(String username, int kills, boolean alive, Weapon weapon, int bullets, int hp, boolean player, Image icon, int defaultPower, int defaultDexterity, int defaultFaith, int defaultArmor, int defaultIntelligence, int power, int dexterity, int faith, int armor, int intelligence, int level, int exp) {
         super(username, kills, alive, weapon, bullets, hp, player, icon, defaultPower, defaultDexterity, defaultFaith, defaultArmor, defaultIntelligence, power, dexterity, faith, armor, intelligence, level, exp);
     }
@@ -16,7 +16,7 @@ public class NPC extends PlayableCharacter{
     public void action(PlayableCharacter name) {
 
     }
-    public void generate() {
+    public static NPC generate() {
         String username = "Bot " + random.nextInt(0, 1000);
         int kills = 0;
         boolean alive = true;
@@ -36,7 +36,7 @@ public class NPC extends PlayableCharacter{
         int armor = defaultArmor;
         int intelligence = defaultIntelligence;
 
-        PlayableCharacter newNPC = new PlayableCharacter(username, kills, alive, weapon, bullets, hp, player, icon, defaultPower, defaultDexterity, defaultFaith, defaultArmor, defaultIntelligence, power, dexterity, faith, armor, intelligence, 1, 0);
+        return new NPC(username, kills, alive, weapon, bullets, hp, player, icon, defaultPower, defaultDexterity, defaultFaith, defaultArmor, defaultIntelligence, power, dexterity, faith, armor, intelligence, 1, 0);
     }
 
 

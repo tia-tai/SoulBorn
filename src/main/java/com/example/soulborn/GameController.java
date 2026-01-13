@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -58,6 +59,7 @@ public class GameController {
     public Label weaponStatNPC;
     public ImageView NPCIcon;
     private String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    public HBox playersList;
 
     public Button addNPCButton;
     public Button exitBattleButton;
@@ -259,6 +261,12 @@ public class GameController {
 
     public void generateNPC(ActionEvent event) {
         Button currentButton = (Button) event.getSource();
+        NPC currentNPC = null;
+        for (NPC npc : newNpcs) {
+            if (npc.getUsername().equals(currentButton.getId())) {
+                currentNPC = npc;
+            }
+        }
         StringBuilder result = new StringBuilder();
 
         for (int x = 0; x < 5; x++) {
@@ -277,16 +285,68 @@ public class GameController {
         int armor = random.nextInt(0, 3);
         int intelligence = random.nextInt(0, 3);
 
-        NPCName.setText(name);
-        powerStatNPC.setText("Power: " + power);
-        dexterityStatNPC.setText("Dexterity: " + dexterity);
-        armorStatNPC.setText("Armor: " + armor);
-        intelligenceStatNPC.setText("Intelligence: " + intelligence);
-        faithStatNPC.setText("Faith: " + faith);
-        weaponStatNPC.setText(weapon.getWeaponName());
+        currentNPC.setUsername(name);
+        currentNPC.setDefaultPower(power);
+        currentNPC.setPower(power);
+        currentNPC.setDefaultDexterity(dexterity);
+        currentNPC.setDexterity(dexterity);
+        currentNPC.setDefaultFaith(faith);
+        currentNPC.setFaith(faith);
+        currentNPC.setDefaultArmor(armor);
+        currentNPC.setArmor(armor);
+        currentNPC.setDefaultIntelligence(intelligence);
+        currentNPC.setIntelligence(intelligence);
+        currentNPC.setWeapon(weapon);
+
+        AnchorPane currentPane = (AnchorPane) currentButton.getParent();
+
+        Label NPCNameCurrent = (Label) currentPane.getChildren().get(1);
+        VBox vBox1 = (VBox) currentPane.getChildren().get(2);
+        VBox vBox2 = (VBox) currentPane.getChildren().get(3);
+        Label NPCPowerCurrent = (Label) vBox1.getChildren().get(0);
+        Label NPCDexterityCurrent = (Label) vBox1.getChildren().get(1);
+        Label NPCFaithCurrent = (Label) vBox1.getChildren().get(2);
+        Label NPCArmorCurrent = (Label) vBox2.getChildren().get(0);
+        Label NPCIntelligenceCurrent = (Label) vBox2.getChildren().get(1);
+        Label NPCWeaponCurrent = (Label) vBox2.getChildren().get(2);
+
+        NPCNameCurrent.setText(name);
+        NPCPowerCurrent.setText("Power: " + power);
+        NPCDexterityCurrent.setText("Dexterity: " + dexterity);
+        NPCArmorCurrent.setText("Armor: " + armor);
+        NPCIntelligenceCurrent.setText("Intelligence: " + intelligence);
+        NPCFaithCurrent.setText("Faith: " + faith);
+        NPCWeaponCurrent.setText(weapon.getWeaponName());
     }
 
     public void addNPC() {
-        //newNpcs.add(new NPC());
+        NPC newNPC = NPC.generate();
+        newNpcs.add(newNPC);
+        ImageView newIcon = new ImageView();
+        newIcon.setId("NPCIcon");
+        Label newName = new Label(newNPC.getUsername());
+        newName.setId("NPCName");
+        Label newPowerLabel = new Label("Power: " + newNPC.getDefaultPower());
+        newPowerLabel.setId("powerStatNPC");
+        Label newDexterityLabel = new Label("Dexterity: " + newNPC.getDefaultDexterity());
+        newDexterityLabel.setId("dexterityStatNPC");
+        Label newFaithLabel = new Label("Faith: " + newNPC.getDefaultFaith());
+        newFaithLabel.setId("faithStatNPC");
+        Label newArmorLabel = new Label("Armor: " + newNPC.getDefaultArmor());
+        newArmorLabel.setId("armorStatNPC");
+        Label newIntelligenceLabel = new Label("Intelligence: " + newNPC.getDefaultIntelligence());
+        newIntelligenceLabel.setId("intelligenceStatNPC");
+        Label newWeaponLabel = new Label(newNPC.getWeapon().getWeaponName());
+        newWeaponLabel.setId("weaponStatNPC");
+        VBox newVbox1 = new VBox(newPowerLabel, newDexterityLabel, newFaithLabel);
+        newVbox1.setId("vBox1");
+        VBox newVbox2 = new VBox(newArmorLabel, newIntelligenceLabel, newWeaponLabel);
+        newVbox2.setId("vBox2");
+        Button newButton = new Button("Generate");
+        newButton.setId(newNPC.getUsername());
+        newButton.setOnAction(this::generateNPC);
+
+        AnchorPane newPane = new AnchorPane(newIcon, newName, newVbox1, newVbox2, newButton);
+        playersList.getChildren().add(playersList.getChildren().size()-1, newPane);
     }
 }
