@@ -86,6 +86,7 @@ public class GameController {
 
     public void initialize() {
         Weapon.generate();
+        Game.restoreData();
         ArrayList<Weapon> weapons = Weapon.getWeapons();
         for (Weapon weapon : weapons) {
             Button newWeapon = new Button(weapon.getWeaponName());
@@ -104,7 +105,7 @@ public class GameController {
             );
             weaponCatalog.getChildren().add(newWeapon);
         }
-        Game.restoreData();
+
         for (Game game : Game.getGameList()) {
             System.out.println(game.getGameName());
             Label newLabel = new Label(game.getGameName());

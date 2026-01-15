@@ -2,9 +2,10 @@ package com.example.soulborn;
 
 import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class NPC extends PlayableCharacter{
+public class NPC extends PlayableCharacter implements Serializable {
     public static Random random = new Random();
     public NPC(String username, int kills, boolean alive, Weapon weapon, int bullets, int hp, boolean player, Image icon, int defaultPower, int defaultDexterity, int defaultFaith, int defaultArmor, int defaultIntelligence, int power, int dexterity, int faith, int armor, int intelligence, int level, int exp) {
         super(username, kills, alive, weapon, bullets, hp, player, icon, defaultPower, defaultDexterity, defaultFaith, defaultArmor, defaultIntelligence, power, dexterity, faith, armor, intelligence, level, exp);

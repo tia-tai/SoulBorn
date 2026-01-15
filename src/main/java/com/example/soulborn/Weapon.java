@@ -1,8 +1,9 @@
 package com.example.soulborn;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Weapon {
+public class Weapon implements Serializable {
     private String weaponName;
     private int maxAmmo;
     private int damage;

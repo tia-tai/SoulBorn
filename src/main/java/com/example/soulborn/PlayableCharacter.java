@@ -2,7 +2,9 @@ package com.example.soulborn;
 
 import javafx.scene.image.Image;
 
-public class PlayableCharacter {
+import java.io.Serializable;
+
+public class PlayableCharacter implements Serializable {
     private String username;
     private int kills;
     private boolean alive;

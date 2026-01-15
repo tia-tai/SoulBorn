@@ -8,8 +8,9 @@ import javafx.embed.swing.SwingFXUtils;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-    transient private ArrayList<PlayableCharacter> players = new ArrayList<>();
-    transient private PlayableCharacter currentCharacter;
+    private static final long serialVersionUID = 1L;
+    private ArrayList<PlayableCharacter> players = new ArrayList<>();
+    private PlayableCharacter currentCharacter;
     transient private String gameName = "default Game";
     static ArrayList<Game> gameList = new ArrayList<>();
 
@@ -52,12 +53,16 @@ public class Game implements Serializable {
         Game.gameList = gameList;
     }
 
-    static void saveData() throws Exception {
-        FileOutputStream fileOut = new FileOutputStream("src/main/GameSavedData");
-        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-        objectOut.writeObject(Game.getGameList());
-        objectOut.close();
-        fileOut.close();
+    static void saveData()  {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/main/GameSavedData");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(Game.getGameList());
+            objectOut.close();
+            fileOut.close();
+        } catch (Exception e) {
+            System.out.println("saveData: " + e);
+        }
     }
 
     static void restoreData() {
@@ -68,7 +73,7 @@ public class Game implements Serializable {
             objectIn.close();
             fileIn.close();
         } catch (Exception e) {
-
+            System.out.println("restoreData: " + e);
         }
     }
 
