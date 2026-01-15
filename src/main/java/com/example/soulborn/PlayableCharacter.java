@@ -10,7 +10,7 @@ public class PlayableCharacter {
     private int bullets;
     private int hp;
     private boolean player;
-    private Image icon;
+    transient private Image icon;
     private int defaultPower;
     private int defaultDexterity;
     private int defaultFaith;
@@ -189,5 +189,21 @@ public class PlayableCharacter {
 
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 }

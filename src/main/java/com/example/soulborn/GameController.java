@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -26,6 +27,8 @@ public class GameController {
 
     public Button newGameButton;
     public Button loadGameButton;
+
+    public HBox savedGamesList;
 
     public TextField usernameField;
     public TextField powerField;
@@ -101,6 +104,16 @@ public class GameController {
             );
             weaponCatalog.getChildren().add(newWeapon);
         }
+        Game.restoreData();
+        for (Game game : Game.getGameList()) {
+            System.out.println(game.getGameName());
+            Label newLabel = new Label(game.getGameName());
+            Pane newPane = new Pane(newLabel);
+            Button newButton = new Button("", newPane);
+            newButton.setId(game.getGameName());
+
+            savedGamesList.getChildren().add(newButton);
+        }
     }
 
     public void hideAllPanes() {
@@ -120,7 +133,8 @@ public class GameController {
         gamePane.setDisable(true);
     }
 
-    public void showHomePane() {
+    public void showHomePane() throws Exception {
+        Game.saveData();
         hideAllPanes();
         homePane.setVisible(true);
         homePane.setDisable(false);

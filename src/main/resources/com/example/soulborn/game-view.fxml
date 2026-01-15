@@ -49,7 +49,7 @@
             </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="savedGamePane" disable="true" style="-fx-background-color: rgba(10, 10, 26, 0.95);" visible="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+        <AnchorPane fx:id="savedGamePane" style="-fx-background-color: rgba(10, 10, 26, 0.95);" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
             <effect>
                 <DropShadow color="#000000" radius="30" spread="0.5" />
             </effect>
@@ -66,50 +66,27 @@
                         </Text>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="608.0" prefWidth="1720.0" style="-fx-background: transparent; -fx-background-color: transparent;">
                             <content>
-                                <HBox spacing="20">
+                                <HBox fx:id="savedGamesList" spacing="20">
                                     <padding>
                                         <Insets bottom="10" left="10" right="10" top="10" />
                                     </padding>
                                     <children>
-                                        <Pane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 20; -fx-border-color: #4a4a6a; -fx-border-width: 3; -fx-border-radius: 20;">
-                                            <effect>
-                                                <DropShadow color="#000000" radius="15" spread="0.4" />
-                                            </effect>
-                                            <children>
-                                                <ImageView fitHeight="363.0" fitWidth="451.0" layoutX="72.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 0);" />
-                                                <Label layoutX="200.0" layoutY="434.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0.4, 0, 0);" text="Game 1" textFill="#87ceeb">
-                                                    <font>
-                                                        <Font name="Georgia Bold" size="50.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </Pane>
-                                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 20; -fx-border-color: #4a4a6a; -fx-border-width: 3; -fx-border-radius: 20;">
-                                            <effect>
-                                                <DropShadow color="#000000" radius="15" spread="0.4" />
-                                            </effect>
-                                            <children>
-                                                <ImageView fitHeight="363.0" fitWidth="451.0" layoutX="72.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Label layoutX="200.0" layoutY="434.0" text="Game 2" textFill="#87ceeb">
-                                                    <font>
-                                                        <Font name="Georgia Bold" size="50.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </Pane>
-                                        <Pane layoutX="610.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 20; -fx-border-color: #4a4a6a; -fx-border-width: 3; -fx-border-radius: 20;">
-                                            <effect>
-                                                <DropShadow color="#000000" radius="15" spread="0.4" />
-                                            </effect>
-                                            <children>
-                                                <ImageView fitHeight="363.0" fitWidth="451.0" layoutX="72.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Label layoutX="200.0" layoutY="434.0" text="Game 3" textFill="#87ceeb">
-                                                    <font>
-                                                        <Font name="Georgia Bold" size="50.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </Pane>
+                              <Button mnemonicParsing="false" text="Button">
+                                 <graphic>
+                                              <Pane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 20; -fx-border-color: #4a4a6a; -fx-border-width: 3; -fx-border-radius: 20;">
+                                                  <effect>
+                                                      <DropShadow color="#000000" radius="15" spread="0.4" />
+                                                  </effect>
+                                                  <children>
+                                                      <Label layoutX="200.0" layoutY="434.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0.4, 0, 0);" text="Game 1" textFill="#87ceeb">
+                                                          <font>
+                                                              <Font name="Georgia Bold" size="50.0" />
+                                                          </font>
+                                                      </Label>
+                                                  </children>
+                                              </Pane>
+                                 </graphic>
+                              </Button>
                                     </children>
                                 </HBox>
                             </content>

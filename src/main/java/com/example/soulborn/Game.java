@@ -4,12 +4,13 @@ import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.io.*;
+import javafx.embed.swing.SwingFXUtils;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-    private ArrayList<PlayableCharacter> players = new ArrayList<>();
-    private PlayableCharacter currentCharacter;
-    private String gameName = "default Game";
+    transient private ArrayList<PlayableCharacter> players = new ArrayList<>();
+    transient private PlayableCharacter currentCharacter;
+    transient private String gameName = "default Game";
     static ArrayList<Game> gameList = new ArrayList<>();
 
     public Game(ArrayList<PlayableCharacter> players, PlayableCharacter currentCharacter, String gameName) {
@@ -74,19 +75,24 @@ public class Game implements Serializable {
     @Serial
     private void writeObject(ObjectOutputStream s) throws IOException {
         s.defaultWriteObject();
-//        if (img != null) {
-//            ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", s);
-//        }
+        for (PlayableCharacter character : this.players){
+            if (character.getIcon() != null) {
+                ImageIO.write(SwingFXUtils.fromFXImage(character.getIcon(), null), "png", s);
+            }
+        }
     }
 
     @Serial
     private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
         s.defaultReadObject();
-//        Image savedImage = null;
-//        try {
-//            savedImage = SwingFXUtils.toFXImage(ImageIO.read(s), null);
-//        } catch (Exception ex) {
-//        }
-//        this.img = savedImage;
+        for (PlayableCharacter character : this.players){
+            Image savedImage = null;
+            try {
+                savedImage = SwingFXUtils.toFXImage(ImageIO.read(s), null);
+            }
+            catch (Exception ex) {
+            }
+            character.setIcon(savedImage);
+        }
     }
 }
