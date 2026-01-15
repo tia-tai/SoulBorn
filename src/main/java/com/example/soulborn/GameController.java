@@ -88,6 +88,17 @@ public class GameController {
             Button newWeapon = new Button(weapon.getWeaponName());
             newWeapon.setId(weapon.getWeaponName());
             newWeapon.setOnAction(this::saveWeapon);
+            newWeapon.setStyle(
+                "-fx-background-color: #2d2d3d; " +
+                "-fx-text-fill: #ffd700; " +
+                "-fx-background-radius: 8; " +
+                "-fx-border-color: #4a4a6a; " +
+                "-fx-border-width: 2; " +
+                "-fx-border-radius: 8; " +
+                "-fx-padding: 15 30; " +
+                "-fx-font-size: 20; " +
+                "-fx-cursor: hand;"
+            );
             weaponCatalog.getChildren().add(newWeapon);
         }
     }
@@ -153,8 +164,18 @@ public class GameController {
         }
     }
 
-    public void showGamePane() {
+    public void showGamePane() throws Exception {
         hideAllPanes();
+
+        if (newGame == null) {
+            ArrayList<PlayableCharacter> characters = new ArrayList<>();
+            characters.add(newPlayer);
+            characters.addAll(newNpcs);
+            newGame = new Game(characters, newPlayer, "Game" +  random.nextInt(0, 100000));
+        }
+
+        Game.saveData();
+
         gamePane.setVisible(true);
         gamePane.setDisable(false);
     }
@@ -310,6 +331,7 @@ public class GameController {
         Label NPCIntelligenceCurrent = (Label) vBox2.getChildren().get(1);
         Label NPCWeaponCurrent = (Label) vBox2.getChildren().get(2);
 
+        currentButton.setId(currentNPC.getUsername());
         NPCNameCurrent.setText(name);
         NPCPowerCurrent.setText("Power: " + power);
         NPCDexterityCurrent.setText("Dexterity: " + dexterity);
@@ -324,29 +346,94 @@ public class GameController {
         newNpcs.add(newNPC);
         ImageView newIcon = new ImageView();
         newIcon.setId("NPCIcon");
+        newIcon.setFitHeight(150.0);
+        newIcon.setFitWidth(200.0);
+        newIcon.setLayoutX(90.0);
+        newIcon.setLayoutY(20.0);
+        newIcon.setPickOnBounds(true);
+        newIcon.setPreserveRatio(true);
+
         Label newName = new Label(newNPC.getUsername());
         newName.setId("NPCName");
+        newName.setLayoutX(125.0);
+        newName.setLayoutY(180.0);
+        newName.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+        newName.setFont(javafx.scene.text.Font.font("Georgia Bold", 40.0));
+
         Label newPowerLabel = new Label("Power: " + newNPC.getDefaultPower());
         newPowerLabel.setId("powerStatNPC");
+        newPowerLabel.setTextFill(javafx.scene.paint.Color.web("#ff6b6b"));
+        newPowerLabel.setFont(javafx.scene.text.Font.font(20.0));
+
         Label newDexterityLabel = new Label("Dexterity: " + newNPC.getDefaultDexterity());
         newDexterityLabel.setId("dexterityStatNPC");
+        newDexterityLabel.setTextFill(javafx.scene.paint.Color.web("#90ee90"));
+        newDexterityLabel.setFont(javafx.scene.text.Font.font(20.0));
+
         Label newFaithLabel = new Label("Faith: " + newNPC.getDefaultFaith());
         newFaithLabel.setId("faithStatNPC");
+        newFaithLabel.setTextFill(javafx.scene.paint.Color.web("#ffd700"));
+        newFaithLabel.setFont(javafx.scene.text.Font.font(20.0));
+
         Label newArmorLabel = new Label("Armor: " + newNPC.getDefaultArmor());
         newArmorLabel.setId("armorStatNPC");
+        newArmorLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+        newArmorLabel.setFont(javafx.scene.text.Font.font(20.0));
+
         Label newIntelligenceLabel = new Label("Intelligence: " + newNPC.getDefaultIntelligence());
         newIntelligenceLabel.setId("intelligenceStatNPC");
+        newIntelligenceLabel.setTextFill(javafx.scene.paint.Color.web("#dda0dd"));
+        newIntelligenceLabel.setFont(javafx.scene.text.Font.font(20.0));
+
         Label newWeaponLabel = new Label(newNPC.getWeapon().getWeaponName());
         newWeaponLabel.setId("weaponStatNPC");
-        VBox newVbox1 = new VBox(newPowerLabel, newDexterityLabel, newFaithLabel);
+        newWeaponLabel.setTextFill(javafx.scene.paint.Color.web("#ffffff"));
+        newWeaponLabel.setFont(javafx.scene.text.Font.font(20.0));
+
+        VBox newVbox1 = new VBox(8, newPowerLabel, newDexterityLabel, newFaithLabel);
         newVbox1.setId("vBox1");
-        VBox newVbox2 = new VBox(newArmorLabel, newIntelligenceLabel, newWeaponLabel);
+        newVbox1.setLayoutX(30.0);
+        newVbox1.setLayoutY(240.0);
+
+        VBox newVbox2 = new VBox(8, newArmorLabel, newIntelligenceLabel, newWeaponLabel);
         newVbox2.setId("vBox2");
+        newVbox2.setLayoutX(220.0);
+        newVbox2.setLayoutY(240.0);
+
         Button newButton = new Button("Generate");
         newButton.setId(newNPC.getUsername());
         newButton.setOnAction(this::generateNPC);
+        newButton.setLayoutX(90.0);
+        newButton.setLayoutY(320.0);
+        newButton.setStyle(
+            "-fx-background-color: #1a4d2e; " +
+            "-fx-text-fill: #90ee90; " +
+            "-fx-background-radius: 8; " +
+            "-fx-border-color: #90ee90; " +
+            "-fx-border-width: 2; " +
+            "-fx-border-radius: 8; " +
+            "-fx-cursor: hand; " +
+            "-fx-padding: 8 35;"
+        );
+        newButton.setFont(javafx.scene.text.Font.font(22.0));
 
         AnchorPane newPane = new AnchorPane(newIcon, newName, newVbox1, newVbox2, newButton);
+        newPane.setPrefHeight(380.0);
+        newPane.setPrefWidth(380.0);
+        newPane.setStyle(
+            "-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); " +
+            "-fx-background-radius: 15; " +
+            "-fx-border-color: #87ceeb; " +
+            "-fx-border-width: 2; " +
+            "-fx-border-radius: 15;"
+        );
+
+        javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+        dropShadow.setColor(javafx.scene.paint.Color.BLACK);
+        dropShadow.setRadius(10);
+        dropShadow.setSpread(0.2);
+        newPane.setEffect(dropShadow);
+
         playersList.getChildren().add(playersList.getChildren().size()-1, newPane);
     }
 }

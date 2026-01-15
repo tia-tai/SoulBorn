@@ -15,4 +15,8 @@ public class GameApplication extends javafx.application.Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void stop() throws Exception {
+        Game.saveData();
+    }
 }
