@@ -419,126 +419,60 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <HBox prefHeight="340.0" spacing="25">
-                            <children>
-                                <AnchorPane prefHeight="340.0" prefWidth="340.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 12; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 12;">
-                                    <effect>
-                                        <DropShadow color="#ffd700" radius="12" spread="0.3" />
-                                    </effect>
-                                    <children>
-                                        <ImageView fitHeight="120.0" fitWidth="150.0" layoutX="95.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label layoutX="100.0" layoutY="145.0" text="PLayer" textFill="#ffd700">
-                                            <font>
-                                                <Font name="Georgia Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <VBox layoutX="20.0" layoutY="190.0" spacing="5">
-                                            <children>
-                                                <Label style="-fx-font-weight: bold;" text="HP: 100/100" textFill="#ff6b6b">
-                                                    <font><Font size="18.0" /></font>
-                                                </Label>
-                                                <Label text="Power: 0" textFill="#ff6b6b"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Dexterity: 0" textFill="#90ee90"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Faith: 0" textFill="#ffd700"><font><Font size="16.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="180.0" layoutY="190.0" spacing="5">
-                                            <children>
-                                                <Label text="Armor: 0" textFill="#87ceeb"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Intelligence: 0" textFill="#dda0dd"><font><Font size="16.0" /></font></Label>
-                                                <Label style="-fx-font-weight: bold;" text="Weapon" textFill="#ffffff"><font><Font size="16.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <HBox layoutX="20.0" layoutY="285.0" spacing="10">
-                                            <children>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #90ee90; -fx-border-radius: 5;" text="Kills: 0" textFill="#90ee90"><font><Font size="14.0" /></font></Label>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #87ceeb; -fx-border-radius: 5;" text="Ammo: 0" textFill="#87ceeb"><font><Font size="14.0" /></font></Label>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #ffd700; -fx-border-radius: 5;" text="Lv: 0" textFill="#ffd700"><font><Font size="14.0" /></font></Label>
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="340.0" prefWidth="340.0" style="-fx-background-color: linear-gradient(to bottom, #3d2d2d, #2d1a1a); -fx-background-radius: 12; -fx-border-color: #ff6b6b; -fx-border-width: 2; -fx-border-radius: 12;">
-                                    <effect>
-                                        <DropShadow color="#000000" radius="8" spread="0.2" />
-                                    </effect>
-                                    <children>
-                                        <ImageView fitHeight="120.0" fitWidth="150.0" layoutX="95.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label layoutX="90.0" layoutY="145.0" text="NPC" textFill="#ff6b6b">
-                                            <font>
-                                                <Font name="Georgia Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <VBox layoutX="20.0" layoutY="190.0" spacing="5">
-                                            <children>
-                                                <Label style="-fx-font-weight: bold;" text="HP: 100/100" textFill="#ff6b6b">
-                                                    <font><Font size="18.0" /></font>
-                                                </Label>
-                                                <Label text="Power: 0" textFill="#ff6b6b"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Dexterity: 0" textFill="#90ee90"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Faith: 0" textFill="#ffd700"><font><Font size="16.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="180.0" layoutY="190.0" spacing="5">
-                                            <children>
-                                                <Label text="Armor: 0" textFill="#87ceeb"><font><Font size="16.0" /></font></Label>
-                                                <Label text="Intelligence: 0" textFill="#dda0dd"><font><Font size="16.0" /></font></Label>
-                                                <Label style="-fx-font-weight: bold;" text="Weapon" textFill="#ffffff"><font><Font size="16.0" /></font></Label>
-                                            </children>
-                                        </VBox>
-                                        <HBox layoutX="20.0" layoutY="285.0" spacing="10">
-                                            <children>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #90ee90; -fx-border-radius: 5;" text="Kills: 0" textFill="#90ee90"><font><Font size="14.0" /></font></Label>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #87ceeb; -fx-border-radius: 5;" text="Ammo: 0" textFill="#87ceeb"><font><Font size="14.0" /></font></Label>
-                                                <Label style="-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #ffd700; -fx-border-radius: 5;" text="Lv: 0" textFill="#ffd700"><font><Font size="14.0" /></font></Label>
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="340.0" spacing="25">
-                            <children>
-                            </children>
-                        </HBox>
-                        <AnchorPane prefHeight="220.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 15;">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="500.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+                            <content>
+                                <HBox fx:id="battleCharactersContainer" spacing="25" style="-fx-padding: 10;">
+                                </HBox>
+                            </content>
+                        </ScrollPane>
+                        <AnchorPane prefHeight="150.0" style="-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); -fx-background-radius: 15; -fx-border-color: #ffd700; -fx-border-width: 3; -fx-border-radius: 15;">
                             <effect>
                                 <DropShadow color="#ffd700" radius="15" spread="0.3" />
                             </effect>
                             <children>
-                                <Text fill="#ffd700" layoutX="600.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Battle Options" textAlignment="CENTER">
-                                    <font>
-                                        <Font name="Georgia Bold" size="40.0" />
-                                    </font>
-                                </Text>
-                                <HBox layoutX="200.0" layoutY="90.0" spacing="40">
+                                <VBox alignment="CENTER" spacing="15" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                     <children>
-                                        <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #8b0000, #5c0000); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #ff6b6b; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="⚔ Attack">
+                                        <Text fill="#ffd700" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Turn - Choose Action">
                                             <font>
-                                                <Font name="Georgia Bold" size="28.0" />
+                                                <Font name="Georgia Bold" size="32.0" />
                                             </font>
-                                            <effect>
-                                                <DropShadow color="#ff6b6b" radius="8" spread="0.3" />
-                                            </effect>
-                                        </Button>
-                                        <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #1a4d2e, #0f3520); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #90ee90; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="❤ Heal">
-                                            <font>
-                                                <Font name="Georgia Bold" size="28.0" />
-                                            </font>
-                                            <effect>
-                                                <DropShadow color="#90ee90" radius="8" spread="0.3" />
-                                            </effect>
-                                        </Button>
-                                        <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #4a4a6a, #2d2d3d); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #87ceeb; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="🔄 Reload">
-                                            <font>
-                                                <Font name="Georgia Bold" size="28.0" />
-                                            </font>
-                                            <effect>
-                                                <DropShadow color="#87ceeb" radius="8" spread="0.3" />
-                                            </effect>
-                                        </Button>
+                                        </Text>
+                                        <HBox alignment="CENTER" spacing="40">
+                                            <children>
+                                                <Button fx:id="attackButton" mnemonicParsing="false" onAction="#onAttackButton"
+                                                        style="-fx-background-color: linear-gradient(to bottom, #8b0000, #5c0000); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #ff6b6b; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
+                                                        text="⚔ Attack">
+                                                    <font>
+                                                        <Font name="Georgia Bold" size="28.0" />
+                                                    </font>
+                                                    <effect>
+                                                        <DropShadow color="#ff6b6b" radius="8" spread="0.3" />
+                                                    </effect>
+                                                </Button>
+                                                <Button fx:id="healButton" mnemonicParsing="false" onAction="#onHealButton"
+                                                        style="-fx-background-color: linear-gradient(to bottom, #1a4d2e, #0f3520); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #90ee90; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
+                                                        text="❤ Heal">
+                                                    <font>
+                                                        <Font name="Georgia Bold" size="28.0" />
+                                                    </font>
+                                                    <effect>
+                                                        <DropShadow color="#90ee90" radius="8" spread="0.3" />
+                                                    </effect>
+                                                </Button>
+                                                <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#onReloadButton"
+                                                        style="-fx-background-color: linear-gradient(to bottom, #4a4a6a, #2d2d3d); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #87ceeb; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
+                                                        text="🔄 Reload">
+                                                    <font>
+                                                        <Font name="Georgia Bold" size="28.0" />
+                                                    </font>
+                                                    <effect>
+                                                        <DropShadow color="#87ceeb" radius="8" spread="0.3" />
+                                                    </effect>
+                                                </Button>
+                                            </children>
+                                        </HBox>
                                     </children>
-                                </HBox>
+                                </VBox>
                             </children>
                         </AnchorPane>
                     </children>

@@ -11,7 +11,7 @@ public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<PlayableCharacter> players = new ArrayList<>();
     private PlayableCharacter currentCharacter;
-    transient private String gameName = "default Game";
+    private String gameName;
     static ArrayList<Game> gameList = new ArrayList<>();
 
     public Game(ArrayList<PlayableCharacter> players, PlayableCharacter currentCharacter, String gameName) {

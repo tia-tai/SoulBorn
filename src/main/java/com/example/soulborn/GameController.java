@@ -71,6 +71,10 @@ public class GameController {
     public Button reloadButton;
     public Button defendButton;
 
+    public HBox battleCharactersContainer;
+    private ArrayList<AnchorPane> characterPanes = new ArrayList<>();
+    private ArrayList<Label> hpLabels = new ArrayList<>();
+
     public HBox weaponCatalog;
     public Button uploadButton;
     public ImageView characterImage;
@@ -84,7 +88,7 @@ public class GameController {
 
     private Game newGame;
 
-    public void initialize() {
+    public void initialize() throws Exception{
         Weapon.generate();
         Game.restoreData();
         ArrayList<Weapon> weapons = Weapon.getWeapons();
@@ -107,13 +111,47 @@ public class GameController {
         }
 
         for (Game game : Game.getGameList()) {
-            System.out.println(game.getGameName());
-            Label newLabel = new Label(game.getGameName());
-            Pane newPane = new Pane(newLabel);
-            Button newButton = new Button("", newPane);
-            newButton.setId(game.getGameName());
+            Label gameNameLabel = new Label(game.getGameName());
+            gameNameLabel.setLayoutX(150.0);
+            gameNameLabel.setLayoutY(434.0);
+            gameNameLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+            gameNameLabel.setFont(javafx.scene.text.Font.font("Georgia Bold", 50.0));
+            gameNameLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0.4, 0, 0);");
 
-            savedGamesList.getChildren().add(newButton);
+            Label infoLabel = new Label("Click to Load");
+            infoLabel.setLayoutX(200.0);
+            infoLabel.setLayoutY(500.0);
+            infoLabel.setTextFill(javafx.scene.paint.Color.web("#4a4a6a"));
+            infoLabel.setFont(javafx.scene.text.Font.font("Georgia", 24.0));
+
+            Pane gamePane = new Pane(gameNameLabel, infoLabel);
+            gamePane.setPrefHeight(600.0);
+            gamePane.setPrefWidth(600.0);
+            gamePane.setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); " +
+                "-fx-background-radius: 20; " +
+                "-fx-border-color: #4a4a6a; " +
+                "-fx-border-width: 3; " +
+                "-fx-border-radius: 20;"
+            );
+
+            javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+            dropShadow.setColor(javafx.scene.paint.Color.BLACK);
+            dropShadow.setRadius(15);
+            dropShadow.setSpread(0.4);
+            gamePane.setEffect(dropShadow);
+
+            Button gameButton = new Button();
+            gameButton.setGraphic(gamePane);
+            gameButton.setId(game.getGameName());
+            gameButton.setStyle(
+                "-fx-background-color: transparent; " +
+                "-fx-cursor: hand; " +
+                "-fx-padding: 0;"
+            );
+            gameButton.setOnAction(this::loadGame);
+
+            savedGamesList.getChildren().add(gameButton);
         }
     }
 
@@ -179,7 +217,7 @@ public class GameController {
         }
     }
 
-    public void showGamePane() throws Exception {
+    public void showGamePane() {
         hideAllPanes();
 
         if (newGame == null) {
@@ -188,8 +226,8 @@ public class GameController {
             characters.addAll(newNpcs);
             newGame = new Game(characters, newPlayer, "Game" +  random.nextInt(0, 100000));
         }
-
         Game.saveData();
+        startBattle();
 
         gamePane.setVisible(true);
         gamePane.setDisable(false);
@@ -450,5 +488,290 @@ public class GameController {
         newPane.setEffect(dropShadow);
 
         playersList.getChildren().add(playersList.getChildren().size()-1, newPane);
+    }
+
+    public void loadGame(ActionEvent actionEvent) {
+        Button currentButton = (Button) actionEvent.getSource();
+        for (Game game : Game.getGameList()) {
+            if (game.getGameName().equals(currentButton.getId())) {
+                newGame = game;
+                newPlayer = (Player) newGame.getPlayers().getFirst();
+            }
+        }
+        this.showGamePane();
+    }
+
+    public void startBattle() {
+        characterPanes.clear();
+        hpLabels.clear();
+        if (battleCharactersContainer != null) {
+            battleCharactersContainer.getChildren().clear();
+        }
+
+
+        // Create UI cards for each character
+        for (PlayableCharacter character : newGame.getPlayers()) {
+            createCharacterCard(character);
+        }
+
+    }
+
+    private void createCharacterCard(PlayableCharacter character) {
+        boolean isPlayer = character.isPlayer();
+
+        ImageView icon = new ImageView();
+        icon.setFitHeight(120.0);
+        icon.setFitWidth(150.0);
+        icon.setLayoutX(95.0);
+        icon.setLayoutY(15.0);
+        icon.setPickOnBounds(true);
+        icon.setPreserveRatio(true);
+        if (character.getIcon() != null) {
+            icon.setImage(character.getIcon());
+        }
+
+        Label nameLabel = new Label(character.getUsername());
+        nameLabel.setLayoutX(isPlayer ? 80.0 : 100.0);
+        nameLabel.setLayoutY(145.0);
+        nameLabel.setTextFill(javafx.scene.paint.Color.web(isPlayer ? "#ffd700" : "#ff6b6b"));
+        nameLabel.setFont(javafx.scene.text.Font.font("Georgia Bold", 32.0));
+
+        Label hpLabel = new Label("HP: " + character.getHp() + "/100");
+        hpLabel.setStyle("-fx-font-weight: bold;");
+        hpLabel.setTextFill(javafx.scene.paint.Color.web("#90ee90"));
+        hpLabel.setFont(javafx.scene.text.Font.font(18.0));
+        hpLabels.add(hpLabel);
+
+        Label powerLabel = new Label("Power: " + character.getPower());
+        powerLabel.setTextFill(javafx.scene.paint.Color.web("#ff6b6b"));
+        powerLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        Label dexLabel = new Label("Dex: " + character.getDexterity());
+        dexLabel.setTextFill(javafx.scene.paint.Color.web("#90ee90"));
+        dexLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        Label faithLabel = new Label("Faith: " + character.getFaith());
+        faithLabel.setTextFill(javafx.scene.paint.Color.web("#ffd700"));
+        faithLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        VBox leftStats = new VBox(5, hpLabel, powerLabel, dexLabel, faithLabel);
+        leftStats.setLayoutX(20.0);
+        leftStats.setLayoutY(190.0);
+
+        Label armorLabel = new Label("Armor: " + character.getArmor());
+        armorLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+        armorLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        Label intLabel = new Label("Int: " + character.getIntelligence());
+        intLabel.setTextFill(javafx.scene.paint.Color.web("#dda0dd"));
+        intLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        String weaponName = character.getWeapon() != null ? character.getWeapon().getWeaponName() : "None";
+        Label weaponLabel = new Label(weaponName);
+        weaponLabel.setStyle("-fx-font-weight: bold;");
+        weaponLabel.setTextFill(javafx.scene.paint.Color.web("#ffffff"));
+        weaponLabel.setFont(javafx.scene.text.Font.font(16.0));
+
+        VBox rightStats = new VBox(5, armorLabel, intLabel, weaponLabel);
+        rightStats.setLayoutX(180.0);
+        rightStats.setLayoutY(215.0);
+
+        Label killsLabel = new Label("Kills: " + character.getKills());
+        killsLabel.setStyle("-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #90ee90; -fx-border-radius: 5;");
+        killsLabel.setTextFill(javafx.scene.paint.Color.web("#90ee90"));
+        killsLabel.setFont(javafx.scene.text.Font.font(14.0));
+
+        Label ammoLabel = new Label("Ammo: " + character.getBullets());
+        ammoLabel.setStyle("-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #87ceeb; -fx-border-radius: 5;");
+        ammoLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+        ammoLabel.setFont(javafx.scene.text.Font.font(14.0));
+
+        Label levelLabel = new Label("Lv: " + character.getLevel());
+        levelLabel.setStyle("-fx-background-color: #1a1a2d; -fx-padding: 3 8; -fx-background-radius: 5; -fx-border-color: #ffd700; -fx-border-radius: 5;");
+        levelLabel.setTextFill(javafx.scene.paint.Color.web("#ffd700"));
+        levelLabel.setFont(javafx.scene.text.Font.font(14.0));
+
+        HBox bottomInfo = new HBox(10, killsLabel, ammoLabel, levelLabel);
+        bottomInfo.setLayoutX(20.0);
+        bottomInfo.setLayoutY(285.0);
+
+        AnchorPane charPane = new AnchorPane(icon, nameLabel, leftStats, rightStats, bottomInfo);
+        charPane.setPrefHeight(340.0);
+        charPane.setPrefWidth(340.0);
+
+        if (isPlayer) {
+            charPane.setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); " +
+                "-fx-background-radius: 12; " +
+                "-fx-border-color: #ffd700; " +
+                "-fx-border-width: 3; " +
+                "-fx-border-radius: 12;"
+            );
+            javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+            dropShadow.setColor(javafx.scene.paint.Color.web("#ffd700"));
+            dropShadow.setRadius(12);
+            dropShadow.setSpread(0.3);
+            charPane.setEffect(dropShadow);
+        } else {
+            charPane.setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #3d2d2d, #2d1a1a); " +
+                "-fx-background-radius: 12; " +
+                "-fx-border-color: #ff6b6b; " +
+                "-fx-border-width: 2; " +
+                "-fx-border-radius: 12;"
+            );
+            javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+            dropShadow.setColor(javafx.scene.paint.Color.BLACK);
+            dropShadow.setRadius(8);
+            dropShadow.setSpread(0.2);
+            charPane.setEffect(dropShadow);
+        }
+
+        characterPanes.add(charPane);
+        battleCharactersContainer.getChildren().add(charPane);
+    }
+
+    private void startTurn() {
+        PlayableCharacter current = newGame.getCurrentCharacter();
+
+        if (!current.isPlayer()) {
+            setPlayerButtonsDisabled(true);
+
+            this.NPCAction(current);
+        } else {
+            setPlayerButtonsDisabled(false);
+        }
+    }
+
+    private void setPlayerButtonsDisabled(boolean disabled) {
+        attackButton.setDisable(disabled);
+        healButton.setDisable(disabled);
+        reloadButton.setDisable(disabled);
+    }
+
+    private void NPCAction(PlayableCharacter npc) {
+        if (!npc.isAlive()) {
+            endTurn();
+            return;
+        } else if (npc.getBullets() == 0) {
+            reload(npc);
+        }else {
+            int nextMove = random.nextInt(0, 1);
+            if (nextMove == 0) {
+                int characterNum = random.nextInt(0, newGame.getPlayers().size());
+                PlayableCharacter target = newGame.getPlayers().get(characterNum);
+                while (!target.isAlive() && !target.getUsername().equals(npc.getUsername())) {
+                    characterNum = random.nextInt(0, newGame.getPlayers().size());
+                    target = newGame.getPlayers().get(characterNum);
+                }
+
+                if (target.isAlive()) {
+                    attack(npc, target);
+                    endTurn();
+                }
+            } else {
+                heal(npc);
+                endTurn();
+            }
+
+        }
+    }
+
+    public void attack(PlayableCharacter attacker, PlayableCharacter target) {
+        int baseDamage = (attacker.getPower() * 10) + attacker.getWeapon().getDamage();
+        attacker.setBullets(attacker.getBullets() - 1);
+
+        boolean critical = random.nextInt(100) * ((attacker.getDexterity() / 10) + 1) < attacker.getWeapon().getAccuracy();
+        if (critical) {
+            baseDamage = (int)(baseDamage * 1.5);
+        }
+
+        int finalDamage = Math.max(1, baseDamage - (target.getArmor() * 5));
+
+        target.setHp(Math.max(0, target.getHp() - finalDamage));
+
+        if (!target.isAlive()) {
+            target.setAlive(false);
+            if (attacker.isPlayer()) {
+                attacker.setKills(attacker.getKills() + 1);
+            }
+        }
+        updateAllBattleStat();
+    }
+
+    public void heal(PlayableCharacter character) {
+        if (!character.isAlive()) return;
+
+        int healAmount = 20 + (character.getFaith() * 10);
+
+        character.setHp(Math.min(100, character.getHp() + healAmount));
+
+        updateAllBattleStat();
+    }
+
+    public void reload(PlayableCharacter character) {
+        int ammoRestored = character.getWeapon().getMaxAmmo();
+        character.setBullets(ammoRestored);
+        updateAllBattleStat();
+    }
+
+    public void onAttackButton() {
+        if (!newPlayer.isAlive()) {
+            endTurn();
+            return;
+        }
+
+        int characterNum = random.nextInt(0, newGame.getPlayers().size());
+        PlayableCharacter target = newGame.getPlayers().get(characterNum);
+        while (!target.isAlive() && !target.getUsername().equals(newPlayer.getUsername())) {
+            characterNum = random.nextInt(0, newGame.getPlayers().size());
+            target = newGame.getPlayers().get(characterNum);
+        }
+        attack(newPlayer, target);
+        endTurn();
+    }
+
+    public void onHealButton () {
+        if (!newPlayer.isAlive()) {
+            endTurn();
+            return;
+        }
+
+        heal(newPlayer);
+        endTurn();
+    }
+
+    public void onReloadButton() {
+        if (!newPlayer.isAlive()) {
+            endTurn();
+            return;
+        }
+
+        reload(newPlayer);
+        endTurn();
+    }
+
+    private void endTurn() {
+        PlayableCharacter currentPlayer = newGame.getCurrentCharacter();
+        int characterNum = newGame.getPlayers().indexOf(currentPlayer);
+        if (characterNum+1 <  newGame.getPlayers().size()) {
+            newGame.setCurrentCharacter(newGame.getPlayers().get(characterNum+1));
+        } else {
+            newGame.setCurrentCharacter(newGame.getPlayers().getFirst());
+        }
+        startTurn();
+    }
+
+    private void updateAllBattleStat() {
+        for (int i = 0; i < newGame.getPlayers().size() && i < hpLabels.size(); i++) {
+            PlayableCharacter character = newGame.getPlayers().get(i);
+            Label hpLabel = hpLabels.get(i);
+
+            hpLabel.setText("HP: " + character.getHp() + "/" + 100);
+
+            if (!character.isAlive() && i < characterPanes.size()) {
+                characterPanes.get(i).setOpacity(0.5);
+            }
+        }
     }
 }
