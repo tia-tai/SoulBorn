@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -49,7 +50,7 @@
             </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="savedGamePane" style="-fx-background-color: rgba(10, 10, 26, 0.95);" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+        <AnchorPane fx:id="savedGamePane" disable="true" style="-fx-background-color: rgba(10, 10, 26, 0.95);" visible="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
             <effect>
                 <DropShadow color="#000000" radius="30" spread="0.5" />
             </effect>
@@ -137,7 +138,7 @@
                                                 <Font name="Georgia Bold" size="40.0" />
                                             </font>
                                         </Text>
-                                        <TextField fx:id="usernameField" onAction="#saveName" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 24; -fx-padding: 10;" />
+                                        <TextField fx:id="usernameField" onKeyTyped="#saveName" style="-fx-background-color: #1a1a2d; -fx-text-fill: #ffffff; -fx-border-color: #4a4a6a; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 24; -fx-padding: 10;" />
                                         <Text fill="#87ceeb" strokeType="OUTSIDE" strokeWidth="0.0" text="Weapon:">
                                             <font>
                                                 <Font name="Georgia Bold" size="40.0" />
@@ -439,9 +440,7 @@
                                         </Text>
                                         <HBox alignment="CENTER" spacing="40">
                                             <children>
-                                                <Button fx:id="attackButton" mnemonicParsing="false" onAction="#onAttackButton"
-                                                        style="-fx-background-color: linear-gradient(to bottom, #8b0000, #5c0000); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #ff6b6b; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
-                                                        text="⚔ Attack">
+                                                <Button fx:id="attackButton" mnemonicParsing="false" onAction="#onAttackButton" style="-fx-background-color: linear-gradient(to bottom, #8b0000, #5c0000); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #ff6b6b; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="⚔ Attack">
                                                     <font>
                                                         <Font name="Georgia Bold" size="28.0" />
                                                     </font>
@@ -449,9 +448,7 @@
                                                         <DropShadow color="#ff6b6b" radius="8" spread="0.3" />
                                                     </effect>
                                                 </Button>
-                                                <Button fx:id="healButton" mnemonicParsing="false" onAction="#onHealButton"
-                                                        style="-fx-background-color: linear-gradient(to bottom, #1a4d2e, #0f3520); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #90ee90; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
-                                                        text="❤ Heal">
+                                                <Button fx:id="healButton" mnemonicParsing="false" onAction="#onHealButton" style="-fx-background-color: linear-gradient(to bottom, #1a4d2e, #0f3520); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #90ee90; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="❤ Heal">
                                                     <font>
                                                         <Font name="Georgia Bold" size="28.0" />
                                                     </font>
@@ -459,9 +456,7 @@
                                                         <DropShadow color="#90ee90" radius="8" spread="0.3" />
                                                     </effect>
                                                 </Button>
-                                                <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#onReloadButton"
-                                                        style="-fx-background-color: linear-gradient(to bottom, #4a4a6a, #2d2d3d); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #87ceeb; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;"
-                                                        text="🔄 Reload">
+                                                <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#onReloadButton" style="-fx-background-color: linear-gradient(to bottom, #4a4a6a, #2d2d3d); -fx-text-fill: #ffffff; -fx-background-radius: 12; -fx-border-color: #87ceeb; -fx-border-width: 3; -fx-border-radius: 12; -fx-cursor: hand; -fx-padding: 20 40;" text="🔄 Reload">
                                                     <font>
                                                         <Font name="Georgia Bold" size="28.0" />
                                                     </font>
@@ -479,5 +474,25 @@
                 </VBox>
             </children>
         </AnchorPane>
+      <AnchorPane fx:id="gameOverPane" disable="true" layoutX="110.0" layoutY="110.0" style="-fx-background-color: red;" visible="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+         <effect>
+            <DropShadow color="#000000" radius="30" spread="0.5" />
+         </effect>
+         <children>
+            <Label layoutX="230.0" layoutY="285.0" text="Game Over" textAlignment="CENTER" textFill="#fffb00" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="233.0">
+               <font>
+                  <Font name="System Bold" size="70.0" />
+               </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
+            </Label>
+            <Button layoutX="463.0" layoutY="599.0" mnemonicParsing="false" onAction="#showHomePane" prefHeight="71.0" prefWidth="244.0" text="Return to Menu" textAlignment="CENTER" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="599.0">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

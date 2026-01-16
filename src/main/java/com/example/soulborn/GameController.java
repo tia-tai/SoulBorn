@@ -24,6 +24,7 @@ public class GameController {
     public AnchorPane newGamePaneCH;
     public AnchorPane newGamePaneNPC;
     public AnchorPane gamePane;
+    public AnchorPane gameOverPane;
 
     public Button newGameButton;
     public Button loadGameButton;
@@ -225,12 +226,60 @@ public class GameController {
             characters.add(newPlayer);
             characters.addAll(newNpcs);
             newGame = new Game(characters, newPlayer, "Game" +  random.nextInt(0, 100000));
+            Game game = newGame;
+            Label gameNameLabel = new Label(game.getGameName());
+            gameNameLabel.setLayoutX(150.0);
+            gameNameLabel.setLayoutY(434.0);
+            gameNameLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+            gameNameLabel.setFont(javafx.scene.text.Font.font("Georgia Bold", 50.0));
+            gameNameLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0.4, 0, 0);");
+
+            Label infoLabel = new Label("Click to Load");
+            infoLabel.setLayoutX(200.0);
+            infoLabel.setLayoutY(500.0);
+            infoLabel.setTextFill(javafx.scene.paint.Color.web("#4a4a6a"));
+            infoLabel.setFont(javafx.scene.text.Font.font("Georgia", 24.0));
+
+            Pane gamePane = new Pane(gameNameLabel, infoLabel);
+            gamePane.setPrefHeight(600.0);
+            gamePane.setPrefWidth(600.0);
+            gamePane.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); " +
+                            "-fx-background-radius: 20; " +
+                            "-fx-border-color: #4a4a6a; " +
+                            "-fx-border-width: 3; " +
+                            "-fx-border-radius: 20;"
+            );
+
+            javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+            dropShadow.setColor(javafx.scene.paint.Color.BLACK);
+            dropShadow.setRadius(15);
+            dropShadow.setSpread(0.4);
+            gamePane.setEffect(dropShadow);
+
+            Button gameButton = new Button();
+            gameButton.setGraphic(gamePane);
+            gameButton.setId(game.getGameName());
+            gameButton.setStyle(
+                    "-fx-background-color: transparent; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-padding: 0;"
+            );
+            gameButton.setOnAction(this::loadGame);
+
+            savedGamesList.getChildren().add(gameButton);
         }
         Game.saveData();
         startBattle();
 
         gamePane.setVisible(true);
         gamePane.setDisable(false);
+    }
+
+    public void showGameOverPane() {
+        hideAllPanes();
+        gameOverPane.setVisible(true);
+        gameOverPane.setDisable(false);
     }
 
     public void saveName() {
@@ -695,6 +744,7 @@ public class GameController {
             if (attacker.isPlayer()) {
                 attacker.setKills(attacker.getKills() + 1);
             }
+            endGame();
         }
         updateAllBattleStat();
     }
@@ -772,6 +822,62 @@ public class GameController {
             if (!character.isAlive() && i < characterPanes.size()) {
                 characterPanes.get(i).setOpacity(0.5);
             }
+        }
+    }
+
+    private void endGame() {
+        if (newPlayer.getHp() <= 0) {
+            showGameOverPane();
+            ArrayList<Game> games = Game.getGameList();
+            games.remove(games.indexOf(newGame));
+            Game.setGameList(games);
+            newGame = null;
+            savedGamesList.getChildren().removeAll();
+            for (Game game : Game.getGameList()) {
+                Label gameNameLabel = new Label(game.getGameName());
+                gameNameLabel.setLayoutX(150.0);
+                gameNameLabel.setLayoutY(434.0);
+                gameNameLabel.setTextFill(javafx.scene.paint.Color.web("#87ceeb"));
+                gameNameLabel.setFont(javafx.scene.text.Font.font("Georgia Bold", 50.0));
+                gameNameLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0.4, 0, 0);");
+
+                Label infoLabel = new Label("Click to Load");
+                infoLabel.setLayoutX(200.0);
+                infoLabel.setLayoutY(500.0);
+                infoLabel.setTextFill(javafx.scene.paint.Color.web("#4a4a6a"));
+                infoLabel.setFont(javafx.scene.text.Font.font("Georgia", 24.0));
+
+                Pane gamePane = new Pane(gameNameLabel, infoLabel);
+                gamePane.setPrefHeight(600.0);
+                gamePane.setPrefWidth(600.0);
+                gamePane.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom, #2d2d3d, #1a1a2d); " +
+                                "-fx-background-radius: 20; " +
+                                "-fx-border-color: #4a4a6a; " +
+                                "-fx-border-width: 3; " +
+                                "-fx-border-radius: 20;"
+                );
+
+                javafx.scene.effect.DropShadow dropShadow = new javafx.scene.effect.DropShadow();
+                dropShadow.setColor(javafx.scene.paint.Color.BLACK);
+                dropShadow.setRadius(15);
+                dropShadow.setSpread(0.4);
+                gamePane.setEffect(dropShadow);
+
+                Button gameButton = new Button();
+                gameButton.setGraphic(gamePane);
+                gameButton.setId(game.getGameName());
+                gameButton.setStyle(
+                        "-fx-background-color: transparent; " +
+                                "-fx-cursor: hand; " +
+                                "-fx-padding: 0;"
+                );
+                gameButton.setOnAction(this::loadGame);
+
+                savedGamesList.getChildren().add(gameButton);
+            }
+        } else {
+
         }
     }
 }
